@@ -6,6 +6,7 @@ import theme from '../theme';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../reusableComponents/Input';
+import useSignIn from '../hooks/useSignIn';
 
 const SignUpSchema = Yup.object().shape({
   name: Yup.string()
@@ -18,10 +19,25 @@ const SignUpSchema = Yup.object().shape({
 });
 
 const SignInScreen = () => {
+  const [signIn] = useSignIn();
+
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+    console.log('Username:', username);
+    console.log('Password:', password);
+
+    try {
+      const { data } = await signIn({ username, password });
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
       <Formik 
       initialValues={{
-        name: '',
+        username: '',
         password: ''
       }}
       validationSchema={SignUpSchema}
@@ -44,13 +60,13 @@ const SignInScreen = () => {
               {/* Text Input */}
               <View style={{marginVertical: 20}}>
                 <Input 
-                  label="Name"
-                  placeholder="Enter your name"
-                  onChangeText={handleChange('name')}
-                  value={values.name}
+                  label="Username"
+                  placeholder="Enter your username"
+                  onChangeText={handleChange('username')}
+                  value={values.username}
                   iconName="email-outline"
-                  error={errors.name}
-                  touched={touched.name}
+                  error={errors.username}
+                  touched={touched.username}
                 />
                 <Input 
                   label="Password"
@@ -63,7 +79,7 @@ const SignInScreen = () => {
                   password
                 />
 
-                <Button title="Log In"/>
+                <Button title="Log In" onPress={() => onSubmit(values)}/>
                 {/* Register */}
                 <Text> Dont have account? Register </Text>
               </View>
