@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, SafeAreaView, ScrollView} from 'react-native';
+import {View, SafeAreaView, ScrollView } from 'react-native';
 import Button from '../reusableComponents/Button';
 import Text from '../reusableComponents/Text';
 import theme from '../theme';
@@ -23,14 +23,14 @@ const SignInScreen = () => {
 
   const onSubmit = async (values) => {
     const { username, password } = values;
+    console.log('Values Screen');
     console.log('Username:', username);
     console.log('Password:', password);
 
     try {
-      const { data } = await signIn({ username, password });
-      console.log(data);
+      await signIn({ username, password });
     } catch (e) {
-      console.log(e);
+      console.log('Error al iniciar sesión: ', e);
     }
   };
 
