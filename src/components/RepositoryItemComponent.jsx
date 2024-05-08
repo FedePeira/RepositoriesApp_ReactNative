@@ -10,14 +10,13 @@ const formatCount = (count) => {
 };
 
 const RepositoryItem = ({ repository }) => {
-
   return (
     <View style={styles.container}>
       <Image source={{ uri: repository.ownerAvatarUrl }} style={styles.avatar} />
       <Text fontWeight="bold" fontSize="subheading">Full name: {repository.fullName}</Text>
       <Text fontWeight="bold" fontSize="subheading">Description: {repository.description}</Text>
       <View style={styles.languageContainer}>
-        <Text fontWeight="bold" fontSize="subheading" style={styles.language}>{repository.language}</Text>
+        <Text fontWeight="bold" fontSize="subheading" style={styles.language} numberOfLines={1} ellipsizeMode="tail">{repository.language}</Text>
       </View>
       <View style={styles.flexContainer}>
         <View style={styles.flexItem}>
@@ -62,11 +61,12 @@ const styles = StyleSheet.create({
   language: {
     backgroundColor: '#0366d6',
     color: 'white',
-    paddingHorizontal: 5,
     margin: 5, 
   },
   flexContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: 10
   },
   flexItem: {

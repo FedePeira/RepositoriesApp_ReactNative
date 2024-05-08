@@ -19,7 +19,7 @@ const SignUpSchema = Yup.object().shape({
 });
 
 const SignInScreen = () => {
-  const [signIn] = useSignIn();
+  const [onSignIn] = useSignIn();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
@@ -28,7 +28,7 @@ const SignInScreen = () => {
     console.log('Password:', password);
 
     try {
-      await signIn({ username, password });
+      await onSignIn({ username, password });
     } catch (e) {
       console.log('Error al iniciar sesión: ', e);
     }

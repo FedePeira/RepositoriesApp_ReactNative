@@ -3,7 +3,9 @@ import { StyleSheet, View, SafeAreaView } from 'react-native';
 import RepositoryList from '../components/RepositoryListComponent';
 import AppBar from '../components/AppBarComponent';
 import { Route, Routes } from 'react-router-native';
-import SignIn from './SignInScreen';
+import RepositoryScreen from './RepositoryScreen';
+import SignOutScreen from './SignOutScreen';
+import SignInScreen from './SignInScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,7 +22,7 @@ const styles = StyleSheet.create({
  },
 });
 
-const Main = () => {
+const MainScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.appBarContainer}>
@@ -28,11 +30,13 @@ const Main = () => {
       </View>
       <Routes>
         <Route path="/" element={<RepositoryList />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin" element={<SignInScreen />} />
+        <Route path="/signout" element={<SignOutScreen />} />
+        <Route path="/:id" element={<RepositoryScreen />} />
       </Routes>
     </SafeAreaView>
     
   );
 };
 
-export default Main;
+export default MainScreen;
