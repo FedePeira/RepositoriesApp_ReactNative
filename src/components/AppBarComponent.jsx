@@ -64,8 +64,6 @@ const AppBar = () => {
     );
   }
 
-  console.log(data);
-
   return(
     <TouchableWithoutFeedback>
       <View style={styles.navigation}>
@@ -83,9 +81,14 @@ const AppBar = () => {
               </Link>
             </>   
           ) : (
-            <Link to="/signin">
-              <Text color='white' style={styles.text}>Sign In</Text>
-            </Link>          
+            <>
+              <Link to="/register">
+                <Text color='white' style={styles.text}>Register</Text>
+              </Link>    
+              <Link to="/signin">
+                <Text color='white' style={styles.text}>Sign In</Text>
+              </Link>   
+            </>     
           )}
         </ScrollView>
       </View>

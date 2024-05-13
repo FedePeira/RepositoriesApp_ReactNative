@@ -10,11 +10,12 @@ const useReview = () => {
 
   const createReviewMutation = async ({ ownerName, repositoryName, rating, review }) => {
     console.log(ownerName, repositoryName, rating, review)
+    console.log('Creando la review...');
     try {
-      const { data } = await createReview({ variables: { ownerName, repositoryName, rating, text: review } });
-      console.log('Data: ', data);
+      const { data } = await createReview({ variables: { ownerName, repositoryName, rating, text: review }});
       await apolloClient.resetStore();
-      navigate(`/${data.createReview.repositoryId}`);
+      console.log('Data: ', data);
+      navigate('/');
       Alert.alert(
         'Creacion del review exitoso',
         'Has creado el review correctamente.',

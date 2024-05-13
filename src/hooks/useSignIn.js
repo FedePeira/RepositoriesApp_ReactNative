@@ -12,6 +12,7 @@ const useSignIn = () => {
   const navigate = useNavigate();
 
   const onSignIn = async ({ username, password }) => {
+    console.log('Iniciando Sesion...')
     try {
       const { data } = await signIn({ variables: { username, password } });
       console.log('Data: ', data);

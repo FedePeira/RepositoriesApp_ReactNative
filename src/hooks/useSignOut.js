@@ -10,6 +10,7 @@ const useSignOut = () => {
   const navigate = useNavigate();
 
   const onSignOut = async () => {
+    console.log('Cerrando sesion...')
     try {
       Alert.alert(
         'Confirmación',

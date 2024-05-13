@@ -8,7 +8,6 @@ const SignOutScreen = () => {
   const [onSignOut] = useSignOut();
    
   const handleSignOut = async () => {
-    console.log('Esta cerrando sesion');
     onSignOut();
   };
 

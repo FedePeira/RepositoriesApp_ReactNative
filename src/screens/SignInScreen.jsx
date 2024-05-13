@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, SafeAreaView, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
+import {View, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Button from '../reusableComponents/Button';
 import Text from '../reusableComponents/Text';
 import theme from '../theme';
@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import Input from '../reusableComponents/Input';
 import useSignIn from '../hooks/useSignIn';
 import useLoadingAndError from '../hooks/useLoadingAndError';
+import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
   loadingContainer: {
@@ -35,13 +36,10 @@ const SignUpSchema = Yup.object().shape({
 const SignInScreen = () => {
   const [ onSignIn, { loading, error } ] = useSignIn();
   const { isLoading, hasError } = useLoadingAndError(loading, error);
+  const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
-    console.log('Values Screen');
-    console.log('Username:', username);
-    console.log('Password:', password);
-
     try {
       await onSignIn({ username, password });
     } catch (e) {
@@ -109,7 +107,11 @@ const SignInScreen = () => {
                 />
 
                 <Button title="Log In" onPress={() => onSubmit(values)}/>
-                <Text> Dont have account? Register </Text>
+                <Text> Dont have account? 
+                  <TouchableOpacity onPress={() => navigate('/register')}>
+                    <Text style={{ color: 'blue' }}>Register</Text>
+                  </TouchableOpacity> 
+                </Text>
               </View>
             </View>
           </SafeAreaView>
