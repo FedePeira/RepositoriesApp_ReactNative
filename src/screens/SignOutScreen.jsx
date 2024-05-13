@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Button from '../reusableComponents/Button';
-import { SafeAreaView, View } from 'react-native-web';
+import { SafeAreaView, View } from 'react-native';
 import theme from '../theme';
 import useSignOut from '../hooks/useSignOut';
 

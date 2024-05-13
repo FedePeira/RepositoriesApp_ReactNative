@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, SafeAreaView, ScrollView } from 'react-native';
+import {View, SafeAreaView, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
 import Button from '../reusableComponents/Button';
 import Text from '../reusableComponents/Text';
 import theme from '../theme';
@@ -7,6 +7,20 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../reusableComponents/Input';
 import useSignIn from '../hooks/useSignIn';
+import useLoadingAndError from '../hooks/useLoadingAndError';
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 const SignUpSchema = Yup.object().shape({
   name: Yup.string()
@@ -19,7 +33,8 @@ const SignUpSchema = Yup.object().shape({
 });
 
 const SignInScreen = () => {
-  const [onSignIn] = useSignIn();
+  const [ onSignIn, { loading, error } ] = useSignIn();
+  const { isLoading, hasError } = useLoadingAndError(loading, error);
 
   const onSubmit = async (values) => {
     const { username, password } = values;
@@ -33,6 +48,22 @@ const SignInScreen = () => {
       console.log('Error al iniciar sesión: ', e);
     }
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text color="red" fontSize="subheading" style={{ marginVertical: 10 }}>Error: {error.message}</Text>
+      </View>
+    );
+  }
 
   return (
       <Formik 
@@ -49,7 +80,6 @@ const SignInScreen = () => {
         <ScrollView>
           <SafeAreaView style={{backgroundColor: theme.colors.white, flex: 1}}>
             <View style={{paddingTop: 50, paddingHorizontal: 20}}>
-              {/* Titulo de Login */}
               <Text color="primary" fontSize="title" fontWeight="bold">
                 Sign In
               </Text>
@@ -57,7 +87,6 @@ const SignInScreen = () => {
                 Enter Your Details to Login
               </Text>
 
-              {/* Text Input */}
               <View style={{marginVertical: 20}}>
                 <Input 
                   label="Username"
@@ -80,7 +109,6 @@ const SignInScreen = () => {
                 />
 
                 <Button title="Log In" onPress={() => onSubmit(values)}/>
-                {/* Register */}
                 <Text> Dont have account? Register </Text>
               </View>
             </View>

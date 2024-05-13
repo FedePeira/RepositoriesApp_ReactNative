@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-native';
 import RepositoryScreen from './RepositoryScreen';
 import SignOutScreen from './SignOutScreen';
 import SignInScreen from './SignInScreen';
+import ReviewFormScreen from './ReviewFormScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +34,7 @@ const MainScreen = () => {
         <Route path="/signin" element={<SignInScreen />} />
         <Route path="/signout" element={<SignOutScreen />} />
         <Route path="/:id" element={<RepositoryScreen />} />
+        <Route path="/createreview" element={<ReviewFormScreen />} />
       </Routes>
     </SafeAreaView>
     
