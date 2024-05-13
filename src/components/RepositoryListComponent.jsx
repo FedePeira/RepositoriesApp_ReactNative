@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, PaperProvider, Menu, Button } from 'react-native-paper';
 import RepositoryItem from './RepositoryItemComponent';
 import useRepositories from '../hooks/useRepositories';
 import { useNavigate } from 'react-router-native';
@@ -20,18 +21,47 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  menu: {
+    backgroundColor: 'rgba(128, 128, 128, 0.8)', 
+    borderRadius: 10,
+    padding: 10, 
+    width: '60%', 
+    alignSelf: 'center', 
+    marginTop: 10,
+  },
 });
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  const { repositories, loading, error } = useRepositories();
-  const navigate = useNavigate();
   const { isLoading, hasError } = useLoadingAndError(loading, error);
+  const navigate = useNavigate();
+  const [orderDirection, setOrderDirection] = useState('DESC');
+  const [orderBy, setOrderBy] = useState('CREATED_AT');
+  const [visibleOrder, setVisibleOrder] = useState(false);
+  const [visibleDirection, setVisibleDirection] = useState(false);
+  const openMenuOrder = () => setVisibleOrder(true);
+  const closeMenuOrder = () => setVisibleOrder(false);
+  const openMenuDirection = () => setVisibleDirection(true);
+  const closeMenuDirection = () => setVisibleDirection(false);
 
   const navigateToRepository = (id) => {
     navigate(`/${id}`);
   };
+
+  const handleOrderChange = (newOrder) => {
+    console.log(newOrder);
+    setOrderBy(newOrder);
+    setVisibleOrder(false);
+  };
+
+  const handleDirectionChange = (newDirection) => {
+    console.log(newDirection);
+    setOrderDirection(newDirection);
+    setVisibleDirection(false);
+  };
+
+  const { repositories, loading, error } = useRepositories(orderBy, orderDirection);
 
   if (isLoading) {
     return (
@@ -60,12 +90,37 @@ const RepositoryList = () => {
     : [];
 
   return (
+    <PaperProvider>
+      <View style={{
+          paddingTop: 10,
+          flexDirection: 'row',   
+          justifyContent: 'center',
+        }}>
+        <Menu
+          visible={visibleOrder}
+          onDismiss={closeMenuOrder}
+          style={styles.menu}
+          anchor={<Button onPress={openMenuOrder}>Show order</Button>}>
+          <Menu.Item onPress={() => handleOrderChange('CREATED_AT')} title="Last repositories" />
+          <Menu.Item onPress={() => handleOrderChange('RATING_AVERAGE')} title="Highest rated" />
+          <Menu.Item onPress={() => handleOrderChange('RATING_AVERAGE')} title="Lowest rated" />
+        </Menu>
+        <Menu
+          visible={visibleDirection}
+          onDismiss={closeMenuDirection}
+          style={styles.menu}
+          anchor={<Button onPress={openMenuDirection}>Show order direction</Button>}>
+          <Menu.Item onPress={() => handleDirectionChange('ASC')} title="Ascending" />
+          <Menu.Item onPress={() => handleDirectionChange('DESC')} title="Descending" />
+        </Menu>
+      </View>
       <FlatList
-        data={repositoryNodes}
-        renderItem={renderItem}
-        ItemSeparatorComponent={ItemSeparator}
-        keyExtractor={(item) => item.id}
-      />
+          data={repositoryNodes}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          ItemSeparatorComponent={ItemSeparator}
+        />
+    </PaperProvider>
   );
 };
 
