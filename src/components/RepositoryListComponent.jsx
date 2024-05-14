@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, TextInput } from 'react-native';
 import { Text, PaperProvider, Menu, Button } from 'react-native-paper';
 import RepositoryItem from './RepositoryItemComponent';
 import useRepositories from '../hooks/useRepositories';
 import { useNavigate } from 'react-router-native';
 import useLoadingAndError from '../hooks/useLoadingAndError';
+import { useDebounce } from 'use-debounce';
 
 const styles = StyleSheet.create({
   separator: {
@@ -40,6 +41,9 @@ const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState('CREATED_AT');
   const [visibleOrder, setVisibleOrder] = useState(false);
   const [visibleDirection, setVisibleDirection] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
+
   const openMenuOrder = () => setVisibleOrder(true);
   const closeMenuOrder = () => setVisibleOrder(false);
   const openMenuDirection = () => setVisibleDirection(true);
@@ -61,7 +65,7 @@ const RepositoryList = () => {
     setVisibleDirection(false);
   };
 
-  const { repositories, loading, error } = useRepositories(orderBy, orderDirection);
+  const { repositories, loading, error } = useRepositories(orderBy, orderDirection, debouncedSearchKeyword);
 
   if (isLoading) {
     return (
@@ -91,6 +95,14 @@ const RepositoryList = () => {
 
   return (
     <PaperProvider>
+      <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'center' }}>
+        <TextInput
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1, width: '80%', alignSelf: 'center' }}
+          onChangeText={setSearchKeyword}
+          value={searchKeyword}
+          placeholder="Search repositories..."
+        />
+      </View>
       <View style={{
           paddingTop: 10,
           flexDirection: 'row',   
