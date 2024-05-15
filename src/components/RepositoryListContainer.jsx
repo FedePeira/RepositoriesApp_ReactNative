@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, TextInput } from 'react-native';
-import { Text, PaperProvider } from 'react-native-paper';
+import { PaperProvider } from 'react-native-paper';
 import RepositoryItem from './RepositoryItemComponent';
 import OrderMenu from './OrderMenuComponent';
 import DirectionMenu from './DirectionMenuComponent';
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons';
+import Text from '../reusableComponents/Text'; 
 
 const styles = StyleSheet.create({
   separator: {
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   },
   searcher: {
     height: 40,
-    borderColor: this.props.searchKeyword? 'blue' : 'gray', 
+    borderColor: 'gray', 
     borderWidth: 1,
     width: '80%',
     alignSelf: 'center',
@@ -91,7 +92,7 @@ class RepositoryListContainer extends Component {
     }
 
     if (hasError) {
-      return <View style={styles.errorContainer}><Text color="red" fontSize="subheading" style={{ marginVertical: 10 }}>Error: {error.message}</Text></View>;
+      return <View style={styles.errorContainer}><Text color="red" fontSize="subheading" style={{ marginVertical: 10 }}>Error: {this.props.error.message}</Text></View>;
     }
 
     const renderItem = ({ item }) => (
@@ -104,13 +105,16 @@ class RepositoryListContainer extends Component {
 
     return (
       <PaperProvider>
-        <FlatList
-          data={repositoryNodes}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          ItemSeparatorComponent={ItemSeparator}
-          ListHeaderComponent={this.renderHeader}
-        />
+        <View style={{ flex: 1 }}>
+          <FlatList
+            data={repositoryNodes}
+            keyExtractor={(item) => item.id}
+            renderItem={renderItem}
+            ItemSeparatorComponent={ItemSeparator}
+            ListHeaderComponent={this.renderHeader}
+            initialNumToRender={10}
+          />
+        </View>
       </PaperProvider>
     );
   }

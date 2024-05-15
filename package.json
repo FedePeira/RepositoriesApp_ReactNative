@@ -34,6 +34,7 @@
     "react-native-web": "^0.19.11",
     "react-router-native": "^6.23.0",
     "use-debounce": "^10.0.0",
+    "uuid": "^9.0.1",
     "yup": "^1.4.0"
   },
   "jest": {
