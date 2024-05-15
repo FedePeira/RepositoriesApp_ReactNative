@@ -14,11 +14,10 @@ const useReview = () => {
     try {
       const { data } = await createReview({ variables: { ownerName, repositoryName, rating, text: review }});
       await apolloClient.resetStore();
-      console.log('Data: ', data);
       navigate('/');
       Alert.alert(
-        'Creacion del review exitoso',
-        'Has creado el review correctamente.',
+        'Creation of the successful review',
+        'You have created the review correctly.',
         [
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],
@@ -27,8 +26,8 @@ const useReview = () => {
     } catch (error) {
       console.error("Error al crear una review:", error);
       Alert.alert(
-        'Error al tratar de crear una review',
-        'Por favor, verifica el formulario.',
+        'Error when trying to create a review',
+        'Please check the form.',
         [
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],

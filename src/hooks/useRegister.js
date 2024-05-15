@@ -17,8 +17,8 @@ const useRegister = () => {
       await apolloClient.resetStore();
       navigate('/');
       Alert.alert(
-        'Registro exitoso',
-        'Se ha registrado correctamente.',
+        'Successful registration',
+        'You have successfully registered.',
         [
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],
@@ -27,8 +27,8 @@ const useRegister = () => {
     } catch (error) {
       console.error("Error al registrarse:", error);
       Alert.alert(
-        'Error al registrar',
-        'Por favor, verifica tus credenciales.',
+        'Error registering',
+        'Please verify your credentials.',
         [
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],

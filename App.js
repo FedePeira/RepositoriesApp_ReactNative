@@ -6,8 +6,9 @@ import MainScreen from './src/screens/MainScreen';
 import AuthStorage from './src/utils/authStorage';
 import AuthStorageContext from './src/context/AuthStorageContext';
 
+/* Posible error con AuthStorage, estoy creando 2 variables de authStorage, uno aca y otro en @apolloClient para que se cree el cliente correctamente */ 
 const authStorage = new AuthStorage();
-const apolloClient = createApolloClient(authStorage);
+const apolloClient = createApolloClient();
 
 const App = () => {
   return (

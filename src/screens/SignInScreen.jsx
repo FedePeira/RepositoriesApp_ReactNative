@@ -43,7 +43,7 @@ const SignInScreen = () => {
     try {
       await onSignIn({ username, password });
     } catch (e) {
-      console.log('Error al iniciar sesión: ', e);
+      console.error('Error al iniciar sesión: ', e);
     }
   };
 

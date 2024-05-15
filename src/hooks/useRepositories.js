@@ -3,15 +3,9 @@ import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from '../graphql/queries';
 
 const useRepositories = ({ first, orderBy, orderDirection, searchKeyword }) => {
-  console.log('Order: ', orderBy);
-  console.log('Order direction: ', orderDirection);
-  console.log('Search keyword: ', searchKeyword);
-  console.log('Position: ', first);
-
   const { data, error, loading } = useQuery(GET_REPOSITORIES, {
     variables: { first, searchKeyword, orderBy, orderDirection },
   }); 
-  console.log('Data:', data);
 
   const [repositories, setRepositories] = useState();
 

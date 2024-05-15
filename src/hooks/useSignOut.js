@@ -13,11 +13,11 @@ const useSignOut = () => {
     console.log('Cerrando sesion...')
     try {
       Alert.alert(
-        'Confirmación',
-        '¿Estás seguro de que quieres cerrar sesión?',
+        'Confirm',
+        'Are you sure you want to log out?',
         [
             {
-            text: 'Cancelar',
+            text: 'Cancel',
             onPress: () => console.log('Cancel Pressed'),
             style: 'cancel',
             },
@@ -37,7 +37,7 @@ const useSignOut = () => {
     } catch (error) {
       console.error("Error al cerrar sesion:", error);
       Alert.alert(
-        'Error al cerrar sesion',
+        'Error when closing session',
         [
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],

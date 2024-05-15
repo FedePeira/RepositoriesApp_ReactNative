@@ -8,6 +8,7 @@ import SignInScreen from './SignInScreen';
 import ReviewFormScreen from './ReviewFormScreen';
 import RegisterFormScreen from './RegisterFormScreen';
 import RepositoryList from '../components/RepositoryListComponent';
+import ReviewsListScreen from './ReviewListScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +33,7 @@ const MainScreen = () => {
         <Route path="/:id" element={<RepositoryScreen />} />
         <Route path="/createreview" element={<ReviewFormScreen />} />
         <Route path="/register" element={<RegisterFormScreen />} />
+        <Route path="/myreviews" element={<ReviewsListScreen />} />
       </Routes>
     </SafeAreaView>
     

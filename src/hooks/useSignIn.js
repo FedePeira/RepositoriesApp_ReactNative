@@ -21,8 +21,8 @@ const useSignIn = () => {
       authStorage.notifySubscribers();
       navigate('/');
       Alert.alert(
-        'Inicio de sesión exitoso',
-        'Has iniciado sesión correctamente.',
+        'Successful login',
+        'You have logged in successfully.',
         [
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],
@@ -31,8 +31,8 @@ const useSignIn = () => {
     } catch (error) {
       console.error("Error al autenticar:", error);
       Alert.alert(
-        'Error al iniciar sesión',
-        'Por favor, verifica tus credenciales.',
+        'Failed to login',
+        'Please verify your credentials.',
         [
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ],

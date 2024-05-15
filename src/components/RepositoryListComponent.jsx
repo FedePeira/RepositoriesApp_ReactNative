@@ -10,6 +10,7 @@ const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState('CREATED_AT');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
+  const navigate = useNavigate();
 
   const { repositories, loading, error } = useRepositories({
     first: 8,
@@ -19,12 +20,9 @@ const RepositoryList = () => {
   });
   const { isLoading, hasError } = useLoadingAndError(loading, error);
 
-  const navigate = useNavigate();
-  const navigateToRepository = (id) => navigate(`/${id}`);
-
   return (
     <RepositoryListContainer
-      navigate={navigateToRepository} 
+      navigate={navigate} 
       repositories={repositories} 
       isLoading={isLoading}
       hasError={hasError}

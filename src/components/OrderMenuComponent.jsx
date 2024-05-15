@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Menu, Button } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
+import { Menu } from 'react-native-paper';
+import { StyleSheet, Button, View } from 'react-native';
 
 const OrderMenu = ({ setOrder }) => {
   const [visible, setVisible] = useState(false);
@@ -13,27 +13,46 @@ const OrderMenu = ({ setOrder }) => {
   };
 
   return (
-    <Menu
-      visible={visible}
-      onDismiss={() => setVisible(false)}
-      style={styles.menu}
-      anchor={<Button onPress={toggleVisibility}>Show order</Button>}
-    >
-      <Menu.Item onPress={() => handleOrderChange('CREATED_AT')} title="Last repositories" />
-      <Menu.Item onPress={() => handleOrderChange('RATING_AVERAGE')} title="Highest rated" />
-      <Menu.Item onPress={() => handleOrderChange('RATING_AVERAGE')} title="Lowest rated" />
-    </Menu>
+    <View style={{ margin: 10 }}>
+      <Menu
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        style={styles.menu}
+        anchor={<Button
+          onPress={toggleVisibility}
+          title="Show order"
+          color="#007AFF" 
+          accessibilityLabel="Toggle direction filter"
+          disabled={visible} 
+        />}
+      >
+        <Menu.Item onPress={() => handleOrderChange('CREATED_AT')} title="Last repositories" />
+        <Menu.Item onPress={() => handleOrderChange('RATING_AVERAGE')} title="Highest rated" />
+        <Menu.Item onPress={() => handleOrderChange('RATING_AVERAGE')} title="Lowest rated" />
+      </Menu>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   menu: {
-    backgroundColor: 'rgba(128, 128, 128, 0.8)', 
-    borderRadius: 10,
     padding: 10, 
     width: '60%', 
     alignSelf: 'center', 
     marginTop: 10,
+  },
+  button: {
+    borderRadius: 5, 
+    paddingVertical: 10, 
+    paddingHorizontal: 20, 
+    backgroundColor: '#007AFF', 
+    borderColor: '#0056b3', 
+    borderWidth: 2, 
+    shadowColor: '#000', 
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25, 
+    shadowRadius: 3.84, 
+    elevation: 5, 
   },
 });
 

@@ -84,7 +84,6 @@ const RepositoryScreen = () => {
     <View style={{ width: '100%', height: 'auto' }}>
       <ReviewItem review={item} />
     </View>
-
   );
 
   return (
