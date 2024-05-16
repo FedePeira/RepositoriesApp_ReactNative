@@ -30,9 +30,9 @@ const ReviewItem = ({ review }) => {
   }
 
   const handleDelete = async () => {
-    const id = review.id;
+    const reviewId = review.id;
     try {
-      await deleteReview({ id });
+      await deleteReview({ reviewId });
     } catch (error) {
       console.error('Error deleting review:', error);
     }

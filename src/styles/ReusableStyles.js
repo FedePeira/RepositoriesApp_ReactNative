@@ -13,7 +13,7 @@ const ReusableStyles  = StyleSheet.create({
   },
   indicator: {
     size: "large",
-     color: "#0000ff"
+    color: "#0000ff"
   },
   separator: {
     height: 10,

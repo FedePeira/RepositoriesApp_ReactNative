@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import theme from '../../theme';
 
 const RepositoryStyles  = StyleSheet.create({
    container: {
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.white,
     padding: 10,
     marginVertical: 5,
     flexWrap: 'wrap'

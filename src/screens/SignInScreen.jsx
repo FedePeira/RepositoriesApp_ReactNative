@@ -2,7 +2,6 @@ import React from 'react';
 import {View, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Button from '../reusableComponents/Button';
 import Text from '../reusableComponents/Text';
-import theme from '../theme';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Input from '../reusableComponents/Input';
@@ -96,11 +95,12 @@ const SignInScreen = () => {
                 />
 
                 <Button title="Log In" onPress={() => onSubmit(values)}/>
-                <Text> Dont have account? 
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text>Dont have account? </Text>
                   <TouchableOpacity onPress={() => navigate('/register')}>
-                    <Text color="blue">Register</Text>
-                  </TouchableOpacity> 
-                </Text>
+                    <Text style={SignInStyles.register}>Register</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </SafeAreaView>

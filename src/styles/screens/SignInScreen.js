@@ -9,6 +9,10 @@ const SignInStyles  = StyleSheet.create({
   signHeader: {
     paddingTop: 50, 
     paddingHorizontal: 20
+  },
+  register: {
+    color: theme.colors.blue, 
+    textDecorationLine: 'underline' 
   }
 });
 

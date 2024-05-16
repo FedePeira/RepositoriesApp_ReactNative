@@ -6,8 +6,8 @@ const useDeleteReview = () => {
   const [deleteReview, { data, loading, error }] = useMutation(DELETE_REVIEW);
   const apolloClient = useApolloClient(); 
 
-  const deleteReviewMutation = async ({ id }) => {
-    console.log(id)
+  const deleteReviewMutation = async ({ reviewId }) => {
+    console.log(reviewId)
     console.log('Borrando la review...');
     try {
       Alert.alert(
@@ -23,7 +23,7 @@ const useDeleteReview = () => {
             text: 'OK',
             onPress: async () => {
                 console.log('Se borro la review');
-                await deleteReview({ variables: { reviewId }});
+                await deleteReview({ variables: { reviewId } });
                 await apolloClient.resetStore();
                 Alert.alert(
                     'Delete of the review successful',

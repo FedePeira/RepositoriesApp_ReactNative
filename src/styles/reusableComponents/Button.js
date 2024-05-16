@@ -21,6 +21,12 @@ const ButtonStyles  = StyleSheet.create({
     shadowRadius: 3.84, 
     elevation: 5, 
   },
+  buttonText: {
+    textAlign: 'center',
+    color: theme.colors.white,
+    fontWeight: theme.fontWeights.bold,
+    fontSize: theme.fontSizes.body
+  },
 });
 
 export default ButtonStyles;

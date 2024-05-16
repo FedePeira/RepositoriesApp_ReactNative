@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, ActivityIndicator, ScrollView, SafeAreaView } from 'react-native';
+import { View, FlatList, ActivityIndicator, SafeAreaView } from 'react-native';
 import useLoadingAndError from '../hooks/useLoadingAndError';
 import Text from '../reusableComponents/Text';
 import { useQuery } from '@apollo/react-hooks';
@@ -31,7 +31,6 @@ const ReviewsListScreen = () => {
   );
 
   return (
-    <ScrollView>
       <SafeAreaView style={ReviewListStyles.listContainer}>
         <View style={ReviewListStyles.listHeader}>
           <Text color="primary" fontSize="title" fontWeight="bold">
@@ -47,7 +46,6 @@ const ReviewsListScreen = () => {
           </View>
         </View>
       </SafeAreaView>
-    </ScrollView>
   );
 };
 
