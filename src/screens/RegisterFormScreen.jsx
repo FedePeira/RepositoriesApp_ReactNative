@@ -6,21 +6,9 @@ import useRegister from '../hooks/useRegister';
 import useLoadingAndError from '../hooks/useLoadingAndError';
 import Text from '../reusableComponents/Text';
 import Input from '../reusableComponents/Input';
-import theme from '../theme';
 import Button from '../reusableComponents/Button';
-
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+import ReusableStyles from '../styles/ReusableStyles';
+import RegisterFormStyles from '../styles/screens/RegisterFormScreen';
 
 const registerValidationSchema = Yup.object().shape({
   username: Yup.string()
@@ -51,15 +39,15 @@ const RegisterFormScreen = () => {
 
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
+      <View style={ReusableStyles.loadingContainer}>
+        <ActivityIndicator style={ReusableStyles.indicator} />
       </View>
     );
   }
 
   if (hasError) {
     return (
-      <View style={styles.errorContainer}>
+      <View style={ReusableStyles.errorContainer}>
         <Text color="red" fontSize="subheading" style={{ marginVertical: 10 }}>Error: {error.message}</Text>
       </View>
     );
@@ -73,8 +61,8 @@ return (
     >
       {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
         <ScrollView>
-          <SafeAreaView style={{backgroundColor: theme.colors.white, flex: 1}}>
-            <View style={{paddingTop: 50, paddingHorizontal: 20}}>
+          <SafeAreaView style={RegisterFormStyles.registerContainer}>
+            <View style={RegisterFormStyles.registerHeader}>
               <Text color="primary" fontSize="title" fontWeight="bold">
                 Register
               </Text>
@@ -82,7 +70,7 @@ return (
                 Enter Your Details to register a new user
               </Text>
 
-              <View style={{marginVertical: 20}}>
+              <View style={RegisterFormStyles.registerInputs}>
                 <Input
                     label="Username"
                     placeholder="Enter your username"

@@ -7,26 +7,8 @@ import useLoadingAndError from '../hooks/useLoadingAndError';
 import Input from '../reusableComponents/Input';
 import theme from '../theme';
 import Text from '../reusableComponents/Text';
-import useReview from '../hooks/useReview';
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    padding: 10,
-    marginVertical: 5,
-    flexWrap: 'wrap'
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+import useCreateReview from '../hooks/useCreateReview';
+import ReusableStyles from '../styles/ReusableStyles';
 
 const reviewValidationSchema = Yup.object().shape({
  ownerUsername: Yup.string()
@@ -43,7 +25,7 @@ const reviewValidationSchema = Yup.object().shape({
 });
 
 const ReviewFormScreen = () => {
-  const [createReview, { loading, error }] = useReview();
+  const [createReview, { loading, error }] = useCreateReview();
   const { isLoading, hasError } = useLoadingAndError(loading, error);
 
   const handleSubmit = async (values) => {
@@ -57,15 +39,15 @@ const ReviewFormScreen = () => {
 
  if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
+      <View style={ReusableStyles.loadingContainer}>
+        <ActivityIndicator style={ReusableStyles.indicator} />
       </View>
     );
   }
 
   if (hasError) {
     return (
-      <View style={styles.errorContainer}>
+      <View style={ReusableStyles.errorContainer}>
         <Text color="red" fontSize="subheading" style={{ marginVertical: 10 }}>Error: {error.message}</Text>
       </View>
     );

@@ -9,21 +9,12 @@ import ReviewFormScreen from './ReviewFormScreen';
 import RegisterFormScreen from './RegisterFormScreen';
 import RepositoryList from '../components/RepositoryListComponent';
 import ReviewsListScreen from './ReviewListScreen';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1, 
-  },
-  appBarContainer: {
-    paddingTop: 50,
-  },
-});
+import MainStyles from '../styles/screens/MainScreen';
 
 const MainScreen = () => {
-
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.appBarContainer}>
+    <SafeAreaView style={MainStyles.container}>
+      <View style={MainStyles.appBarContainer}>
         <AppBar/>
       </View>
       <Routes>

@@ -1,47 +1,71 @@
-// En src/components/ReviewItem.jsx
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
 import { format } from 'date-fns';
-
-const styles = StyleSheet.create({
- container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e1e4e8',
- },
- ratingContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: 'blue',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10, 
- },
- ratingText: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: 'white', 
- },
- reviewInfo: {
-    flex: 1, 
- },
-});
+import useDeleteReview from '../hooks/useDeleteReview';
+import { useNavigate } from 'react-router-native';
+import useLoadingAndError from '../hooks/useLoadingAndError';
+import ReusableStyles from '../styles/ReusableStyles';
+import ReviewItemStyles from '../styles/components/ReviewItemComponent';
 
 const ReviewItem = ({ review }) => {
+  const [deleteReview, { loading, error }] = useDeleteReview();
   const formattedDate = format(new Date(review.createdAt), 'dd.MM.yyyy');
+  const { isLoading, hasError } = useLoadingAndError(loading, error);
+  const navigate = useNavigate();
+
+  if (isLoading) {
+    return (
+      <View style={ReusableStyles.loadingContainer}>
+        <ActivityIndicator style={ReusableStyles.indicator} />
+      </View>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <View style={ReusableStyles.errorContainer}>
+        <Text color="red" fontSize="subheading" style={{ marginVertical: 10 }}>Error: {error.message}</Text>
+      </View>
+    );
+  }
+
+  const handleDelete = async () => {
+    const id = review.id;
+    try {
+      await deleteReview({ id });
+    } catch (error) {
+      console.error('Error deleting review:', error);
+    }
+  };
+
+  const handleView = async () => {
+    console.log('Enviando al usuario a la vista del repositorio');
+    const id = review.repositoryId;
+    navigate(`/${id}`); 
+  };
+
   return (
     <SafeAreaView>
-        <View style={styles.container}>
-            <View style={styles.ratingContainer}>
-                <Text style={styles.ratingText}>{review.rating}</Text>
+        <View style={ReviewItemStyles.container}>
+            <View style={ReviewItemStyles.ratingContainer}>
+                <Text style={ReviewItemStyles.ratingText}>{review.rating}</Text>
             </View>
-            <View style={styles.reviewInfo}>
+            <View style={ReviewItemStyles.reviewInfo}>
                 <Text>{review.user.username}</Text>
                 <Text>{formattedDate}</Text>
                 <Text>{review.text}</Text>
+                <View style={ReviewItemStyles.buttonsContainer}>
+                  <Button 
+                    onPress={() => handleDelete()} 
+                    title="Delete review" 
+                    disabled={loading} 
+                  />
+                  <Button 
+                    onPress={() => handleView()} 
+                    title="View repository" 
+                    disabled={loading}
+                  />
+                </View>
             </View>
         </View>
     </SafeAreaView>

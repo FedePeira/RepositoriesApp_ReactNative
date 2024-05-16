@@ -6,39 +6,10 @@ import OrderMenu from './OrderMenuComponent';
 import DirectionMenu from './DirectionMenuComponent';
 import { Ionicons } from '@expo/vector-icons';
 import Text from '../reusableComponents/Text'; 
+import ReusableStyles from '../styles/ReusableStyles';
+import RepositoryListStyles from '../styles/components/RepositoryListContainer';
 
-const styles = StyleSheet.create({
-  separator: {
-    height: 10,
-    backgroundColor: '#e1e4e8'
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  searcher: {
-    height: 40,
-    borderColor: 'gray', 
-    borderWidth: 1,
-    width: '80%',
-    alignSelf: 'center',
-    borderRadius: 5, 
-    paddingLeft: 10, 
-    backgroundColor: '#fff'
-  },
-  headerContainer: {
-    backgroundColor: '#f0f0f0',
-    padding: 10,
-  },
-});
-
-const ItemSeparator = () => <View style={styles.separator} />;
+const ItemSeparator = () => <View style={ReusableStyles.separator} />;
 
 class RepositoryListContainer extends Component {
   constructor(props) {
@@ -64,11 +35,11 @@ class RepositoryListContainer extends Component {
   renderHeader = () => {
     const { searchKeyword } = this.props;
     return (
-      <View style={styles.headerContainer}>
-        <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'center' , alignItems: 'center'}}>
+      <View style={RepositoryListStyles.headerContainer}>
+        <View style={[RepositoryListStyles.headerItem, { alignItems: 'center'}]}>
           <Ionicons name="search" size={20} color="gray" style={{ marginRight: 10 }} />
           <TextInput
-            style={styles.searcher}
+            style={RepositoryListStyles.searcher}
             onChangeText={this.handleSearchChange}
             value={searchKeyword}
             placeholder="Search repositories..."
@@ -76,7 +47,7 @@ class RepositoryListContainer extends Component {
             placeholderTextColor="gray"
           />
         </View>
-        <View style={{ paddingTop: 10, flexDirection: 'row', justifyContent: 'center' }}>
+        <View style={RepositoryListStyles.headerItem}>
           <OrderMenu setOrder={this.handleOrderChange} />
           <DirectionMenu setDirection={this.handleDirectionChange} />
         </View>
@@ -88,11 +59,11 @@ class RepositoryListContainer extends Component {
     const { repositories, isLoading, hasError } = this.props;
 
     if (isLoading) {
-      return <View style={styles.loadingContainer}><ActivityIndicator size="large" color="#0000ff" /></View>;
+      return <View style={ReusableStyles.loadingContainer}><ActivityIndicator style={ReusableStyles.indicator} /></View>;
     }
 
     if (hasError) {
-      return <View style={styles.errorContainer}><Text color="red" fontSize="subheading" style={{ marginVertical: 10 }}>Error: {this.props.error.message}</Text></View>;
+      return <View style={ReusableStyles.errorContainer}><Text color="red" fontSize="subheading" style={{ marginVertical: 10 }}>Error: {this.props.error.message}</Text></View>;
     }
 
     const renderItem = ({ item }) => (

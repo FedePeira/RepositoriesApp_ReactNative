@@ -9,19 +9,8 @@ import Input from '../reusableComponents/Input';
 import useSignIn from '../hooks/useSignIn';
 import useLoadingAndError from '../hooks/useLoadingAndError';
 import { useNavigate } from 'react-router-native';
-
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+import ReusableStyles from '../styles/ReusableStyles';
+import SignInStyles from '../styles/screens/SignInScreen';
 
 const SignUpSchema = Yup.object().shape({
   name: Yup.string()
@@ -49,15 +38,15 @@ const SignInScreen = () => {
 
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
+      <View style={ReusableStyles.loadingContainer}>
+        <ActivityIndicator style={ReusableStyles.indicator} />
       </View>
     );
   }
 
   if (hasError) {
     return (
-      <View style={styles.errorContainer}>
+      <View style={ReusableStyles.errorContainer}>
         <Text color="red" fontSize="subheading" style={{ marginVertical: 10 }}>Error: {error.message}</Text>
       </View>
     );
@@ -76,8 +65,8 @@ const SignInScreen = () => {
       >
         {({values, errors, touched, handleChange}) =>(
         <ScrollView>
-          <SafeAreaView style={{backgroundColor: theme.colors.white, flex: 1}}>
-            <View style={{paddingTop: 50, paddingHorizontal: 20}}>
+          <SafeAreaView style={SignInStyles.signContainer}>
+            <View style={SignInStyles.signHeader}>
               <Text color="primary" fontSize="title" fontWeight="bold">
                 Sign In
               </Text>
@@ -109,7 +98,7 @@ const SignInScreen = () => {
                 <Button title="Log In" onPress={() => onSubmit(values)}/>
                 <Text> Dont have account? 
                   <TouchableOpacity onPress={() => navigate('/register')}>
-                    <Text style={{ color: 'blue' }}>Register</Text>
+                    <Text color="blue">Register</Text>
                   </TouchableOpacity> 
                 </Text>
               </View>

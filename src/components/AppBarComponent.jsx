@@ -6,28 +6,8 @@ import { ME } from '../graphql/queries';
 import { useQuery } from '@apollo/react-hooks';
 import AuthStorageContext from '../context/AuthStorageContext';
 import useLoadingAndError from '../hooks/useLoadingAndError';
-
-const styles = StyleSheet.create({
-  text: {
-    padding: 10
-  },
-  navigation: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-    backgroundColor: '#333', 
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+import AppBarStyles from '../styles/components/AppBarComponent';
+import ReusableStyles from '../styles/ReusableStyles';
 
 const AppBar = () => {
   const authStorage = useContext(AuthStorageContext);
@@ -50,15 +30,15 @@ const AppBar = () => {
 
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
+      <View style={ReusableStyles.loadingContainer}>
+        <ActivityIndicator style={ReusableStyles.indicator} />
       </View>
     );
   }
 
   if (hasError) {
     return (
-      <View style={styles.errorContainer}>
+      <View style={ReusableStyles.errorContainer}>
         <Text color="red" fontSize="subheading" style={{ marginVertical: 10 }}>Error: {error.message}</Text>
       </View>
     );
@@ -66,30 +46,30 @@ const AppBar = () => {
 
   return(
     <TouchableWithoutFeedback>
-      <View style={styles.navigation}>
+      <View style={AppBarStyles.navigation}>
         <ScrollView horizontal>
           <Link to="/">
-            <Text color='white' style={styles.text}>Repositories</Text>
+            <Text color='white' style={AppBarStyles.text}>Repositories</Text>
           </Link>
           {isAuthenticated ? (
             <>
               <Link to="/createreview">
-                <Text color='white' style={styles.text}>Create Review</Text>
+                <Text color='white' style={AppBarStyles.text}>Create Review</Text>
               </Link>
               <Link to="/myreviews">
-                <Text color='white' style={styles.text}>My Reviews</Text>
+                <Text color='white' style={AppBarStyles.text}>My Reviews</Text>
               </Link>
               <Link to="/signout">
-                <Text color='white' style={styles.text}>Sign Out</Text>
+                <Text color='white' style={AppBarStyles.text}>Sign Out</Text>
               </Link>
             </>   
           ) : (
             <>
               <Link to="/register">
-                <Text color='white' style={styles.text}>Register</Text>
+                <Text color='white' style={AppBarStyles.text}>Register</Text>
               </Link>    
               <Link to="/signin">
-                <Text color='white' style={styles.text}>Sign In</Text>
+                <Text color='white' style={AppBarStyles.text}>Sign In</Text>
               </Link>   
             </>     
           )}

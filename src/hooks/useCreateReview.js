@@ -3,7 +3,7 @@ import { CREATE_REVIEW } from '../graphql/mutation';
 import { useNavigate } from 'react-router-native';
 import { Alert } from 'react-native';
 
-const useReview = () => {
+const useCreateReview = () => {
   const [createReview, { data, loading, error }] = useMutation(CREATE_REVIEW);
   const apolloClient = useApolloClient(); 
   const navigate = useNavigate();
@@ -39,4 +39,4 @@ const useReview = () => {
   return [createReviewMutation, { data, loading, error }];
 };
 
-export default useReview;
+export default useCreateReview;
