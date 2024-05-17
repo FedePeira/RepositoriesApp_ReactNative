@@ -18,6 +18,7 @@ const RepositoryScreen = () => {
     variables: { id },
   });
   const { isLoading, hasError } = useLoadingAndError(loading, error);
+  const showButtons = false;
 
   if (isLoading) {
     return (
@@ -55,7 +56,7 @@ const RepositoryScreen = () => {
 
   const renderItem = ({ item }) => (
     <View style={{ width: '100%', height: 'auto' }}>
-      <ReviewItem review={item} />
+      <ReviewItem review={item} showButtons={showButtons}/>
     </View>
   );
 

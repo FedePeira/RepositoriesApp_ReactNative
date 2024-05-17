@@ -13,6 +13,7 @@ const ItemSeparator = () => <View style={ReusableStyles.separator} />;
 const ReviewsListScreen = () => {
   const { loading, error, data } = useQuery(GET_CURRENT_USER);
   const { isLoading, hasError } = useLoadingAndError(loading, error);
+  const showButtons = true;
 
   if (isLoading) {
     return <View style={ReusableStyles.loadingContainer}><ActivityIndicator style={ReusableStyles.indicator} /></View>;
@@ -24,9 +25,24 @@ const ReviewsListScreen = () => {
 
   const reviews = data.me.reviews.edges.map((edge) => edge.node);
 
+  if (reviews.length === 0) {
+    return (
+      <SafeAreaView style={ReviewListStyles.listContainer}>
+        <View style={ReviewListStyles.listHeader}>
+          <Text color="primary" fontSize="title" fontWeight="bold">
+            List of Reviews
+          </Text>
+          <View style={{marginVertical: 20}}>
+            <Text>No reviews created yet.</Text>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   const renderItem = ({ item }) => (
     <View style={{ width: '100%', height: 'auto' }}>
-      <ReviewItem review={item} />
+      <ReviewItem review={item} showButtons={showButtons}/>
     </View>
   );
 
