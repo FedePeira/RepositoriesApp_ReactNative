@@ -8,11 +8,19 @@ const useCreateReview = () => {
   const apolloClient = useApolloClient(); 
   const navigate = useNavigate();
 
-  const createReviewMutation = async ({ ownerName, repositoryName, rating, review }) => {
-    console.log(ownerName, repositoryName, rating, review)
+  const createReviewMutation = async ({ ownerName, repositoryName, rating, reviewText }) => {
+    console.log(ownerName, repositoryName, rating, reviewText)
     console.log('Creando la review...');
+    const review = {
+      ownerName: ownerName,
+      repositoryName: repositoryName,
+      rating: parseInt(rating),
+      text: reviewText
+    };
+    console.log('Review Object: ', review);
     try {
-      const { data } = await createReview({ variables: { ownerName, repositoryName, rating, text: review }});
+      const { data } = await createReview({ variables: { review: review }});
+      console.log('Data: ', data);
       await apolloClient.resetStore();
       navigate('/');
       Alert.alert(

@@ -29,9 +29,9 @@ const ReviewFormScreen = () => {
   const { isLoading, hasError } = useLoadingAndError(loading, error);
 
   const handleSubmit = async (values) => {
-    const { ownerName, repositoryName, rating, review } = values;
+    const { ownerName, repositoryName, rating, reviewText } = values;
     try {
-      await createReview({ ownerName, repositoryName, rating, review });
+      await createReview({ ownerName, repositoryName, rating, reviewText });
     } catch (error) {
       console.error('Error creating review:', error);
     }
@@ -55,7 +55,7 @@ const ReviewFormScreen = () => {
 
  return (
     <Formik
-      initialValues={{ ownerName: '', repositoryName: '', rating: '', review: '' }}
+      initialValues={{ ownerName: '', repositoryName: '', rating: '', reviewText: '' }}
       validationSchema={reviewValidationSchema}
       onSubmit={handleSubmit}
     >
@@ -104,12 +104,12 @@ const ReviewFormScreen = () => {
               <Input 
                 label="Review"
                 placeholder="Enter your review"
-                onChangeText={handleChange('review')}
-                onBlur={handleBlur('review')}
-                value={values.review}
+                onChangeText={handleChange('reviewText')}
+                onBlur={handleBlur('reviewText')}
+                value={values.reviewText}
                 iconName="comment"
-                error={errors.review}
-                touched={touched.review}
+                error={errors.reviewText}
+                touched={touched.reviewText}
               />
               <Button onPress={() => handleSubmit(values)} title="Send" disabled={loading} />
             </View>
