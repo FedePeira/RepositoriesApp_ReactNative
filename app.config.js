@@ -24,6 +24,9 @@ export default {
     favicon: './assets/favicon.png',
  },
  extra: {
+  eas: {
+   projectId: '33efa4f1-0b72-4c38-807f-5f77ab0c5ca4', 
+  },
   env: process.env.ENV,
   apolloUri: process.env.APOLLO_URI,
  }
