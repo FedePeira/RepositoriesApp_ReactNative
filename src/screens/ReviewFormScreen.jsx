@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator, ScrollView, SafeAreaView } from 'react-native';
+import { View, ActivityIndicator, ScrollView, SafeAreaView } from 'react-native';
 import { Formik } from 'formik';
 import Button  from '../reusableComponents/Button';
 import useLoadingAndError from '../hooks/useLoadingAndError';

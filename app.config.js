@@ -20,6 +20,9 @@ export default {
  ios: {
     supportsTablet: true,
  },
+ android: {
+   package: "com.tudominio.repositoriesApp", 
+ },
  web: {
     favicon: './assets/favicon.png',
  },
